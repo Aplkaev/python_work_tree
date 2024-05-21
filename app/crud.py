@@ -6,8 +6,8 @@ from . import models, schemas
 
 
 def get_work(db: Session, work_id: UUID):
-    # work = db.query(models.Work).filter(
-    #     models.Work.id == work_id).first()
+    work = db.query(models.Work).filter(
+        models.Work.id == work_id).first()
     return 'None'
 
 

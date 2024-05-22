@@ -1,5 +1,7 @@
 ## Локальный запуск
 
+Переменовать файл `.env.example` в `.env`
+
 Билд проекта
 ```bash
 docker compose build

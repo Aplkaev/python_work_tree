@@ -4,11 +4,14 @@ from pytz import timezone
 
 from . import models, schemas
 
+CHECK_DELETED_FLAG = False
 
 def get_work(db: Session, work_id: UUID):
     work = db.query(models.Work).filter(
-        models.Work.id == work_id).first()
-    return 'None'
+        models.Work.id == work_id,
+        models.Work.is_deleted == CHECK_DELETED_FLAG
+        ).first()
+    return work
 
 
 def get_works(db: Session, skip: int = 0, limit: int = 100):
@@ -18,7 +21,7 @@ def get_works(db: Session, skip: int = 0, limit: int = 100):
 def get_works_for_tree(db: Session, tree_id: int):
     return db.query(models.Work).filter(
         models.Work.tree_id == tree_id,
-        not models.Work.is_deleted).all()
+        models.Work.is_deleted == CHECK_DELETED_FLAG).all()
 
 
 def create_work(db: Session, work: schemas.WorkCreate):
@@ -43,7 +46,7 @@ def create_work(db: Session, work: schemas.WorkCreate):
 def update_work(db: Session, work: schemas.Work):
     db_work = db.query(models.Work).filter(
         models.Work.id == work.id,
-        not models.Work.is_deleted,
+        models.Work.is_deleted == CHECK_DELETED_FLAG,
         models.Work.tree_id == work.tree_id).one_or_none()
     if db_work is None:
         return None
@@ -95,7 +98,7 @@ def update_all_tree(db: Session, work: models.Work):
 
     db_works = db.query(models.Work).filter(
         models.Work.parent_id == work.id,
-        not models.Work.is_deleted,
+        models.Work.is_deleted == CHECK_DELETED_FLAG,
         models.Work.tree_id == work.tree_id).all()
     if not db_works:
         return
@@ -111,7 +114,7 @@ def get_first_parent(db: Session, work: models.Work):
         return work
     db_work = db.query(models.Work).filter(
         models.Work.id == work.parent_id,
-        not models.Work.is_deleted,
+        models.Work.is_deleted == CHECK_DELETED_FLAG,
         models.Work.tree_id == work.tree_id).one_or_none()
     if db_work is None:
         return work
@@ -124,7 +127,7 @@ def get_date_limit_children(db: Session, work: models.Work):
     """
     db_works = db.query(models.Work).filter(
         models.Work.parent_id == work.id,
-        not models.Work.is_deleted,
+        models.Work.is_deleted == CHECK_DELETED_FLAG,
         models.Work.tree_id == work.tree_id).all()
     if not db_works:
         return {

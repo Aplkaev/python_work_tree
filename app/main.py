@@ -40,7 +40,7 @@ async def get_work_for_tree(
 async def get_work(
         id: UUID = Path(title="The ID of the item to get work"),
         db: Session = Depends(get_db)):
-    works = crud.get_works(db=db)
+    works = crud.get_work(db=db, work_id=id)
     return works
 
 

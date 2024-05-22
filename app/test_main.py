@@ -88,7 +88,7 @@ def test_add_works():
 
     # получам родителя и проверям время=
     response_parent_1_update = client.get(
-        "/work/" + json_trees['children_1']['parent_id'],
+        "/work/" + response_parent.json()['id'],
         headers={"X-Token": "coneofsilence"},
     )
     assert response_parent_1_update.status_code == 200

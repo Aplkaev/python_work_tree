@@ -91,74 +91,74 @@ def test_add_works():
         "/work/" + json_trees['children_1']['parent_id'],
         headers={"X-Token": "coneofsilence"},
     )
-    # assert response_parent_1_update.status_code == 200
-    # assert response_parent_1_update.json()['start_date'] \
-    #     == json_trees['children_3']['start_date']
-    # assert response_parent_1_update.json()['end_date'] \
-    #     == json_trees['children_3']['end_date']
+    assert response_parent_1_update.status_code == 200
+    assert response_parent_1_update.json()['start_date'] \
+        == json_trees['children_3']['start_date']
+    assert response_parent_1_update.json()['end_date'] \
+        == json_trees['children_3']['end_date']
 
 
-# def test_update_works():
-#     # первая работа
-#     response_parent = client.post(
-#         "/work",
-#         headers={"X-Token": "coneofsilence"},
-#         json=json_trees['parent'],
-#     )
-#     assert response_parent.status_code == 200
+def test_update_works():
+    # первая работа
+    response_parent = client.post(
+        "/work",
+        headers={"X-Token": "coneofsilence"},
+        json=json_trees['parent'],
+    )
+    assert response_parent.status_code == 200
 
-#     json_trees['children_1']['parent_id'] = response_parent.json()['id']
-#     json_trees['children_2']['parent_id'] = response_parent.json()['id']
-#     # вторая работа дочернаяя
-#     response_children_1 = client.post(
-#         "/work",
-#         headers={"X-Token": "coneofsilence"},
-#         json=json_trees['children_1'],
-#     )
-#     assert response_children_1.status_code == 200
+    json_trees['children_1']['parent_id'] = response_parent.json()['id']
+    json_trees['children_2']['parent_id'] = response_parent.json()['id']
+    # вторая работа дочернаяя
+    response_children_1 = client.post(
+        "/work",
+        headers={"X-Token": "coneofsilence"},
+        json=json_trees['children_1'],
+    )
+    assert response_children_1.status_code == 200
 
-#     # третья работа дочернаяя
-#     response_children_2 = client.post(
-#         "/work",
-#         headers={"X-Token": "coneofsilence"},
-#         json=json_trees['children_2'],
-#     )
-#     assert response_children_2.status_code == 200
+    # третья работа дочернаяя
+    response_children_2 = client.post(
+        "/work",
+        headers={"X-Token": "coneofsilence"},
+        json=json_trees['children_2'],
+    )
+    assert response_children_2.status_code == 200
 
-#     json_trees['children_3']['parent_id'] = response_children_1.json()['id']
-#     # четвертая работа дочернаяя
-#     response_children_3 = client.post(
-#         "/work",
-#         headers={"X-Token": "coneofsilence"},
-#         json=json_trees['children_3'],
-#     )
-#     assert response_children_3.status_code == 200
+    json_trees['children_3']['parent_id'] = response_children_1.json()['id']
+    # четвертая работа дочернаяя
+    response_children_3 = client.post(
+        "/work",
+        headers={"X-Token": "coneofsilence"},
+        json=json_trees['children_3'],
+    )
+    assert response_children_3.status_code == 200
 
-#     json_trees['children_3']['id'] = response_children_3.json()['id']
-#     json_trees['children_3']['end_date'] = "2026-10-21T11:04:23.452000"
-#     # четвертая работа дочернаяя
-#     response_children_3 = client.put(
-#         "/work",
-#         headers={"X-Token": "coneofsilence"},
-#         json=json_trees['children_3'],
-#     )
-#     assert response_children_3.status_code == 200
+    json_trees['children_3']['id'] = response_children_3.json()['id']
+    json_trees['children_3']['end_date'] = "2026-10-21T11:04:23.452000"
+    # четвертая работа дочернаяя
+    response_children_3 = client.put(
+        "/work",
+        headers={"X-Token": "coneofsilence"},
+        json=json_trees['children_3'],
+    )
+    assert response_children_3.status_code == 200
 
-#     # получам родителя и проверям время=
-#     response_parent_1_update = client.get(
-#         "/work/" + json_trees['children_1']['parent_id'],
-#         headers={"X-Token": "coneofsilence"},
-#     )
-#     assert response_parent_1_update.status_code == 200
-#     assert response_parent_1_update.json()['start_date'] \
-#         == json_trees['children_3']['start_date']
-#     assert response_parent_1_update.json()['end_date'] \
-#         == json_trees['children_3']['end_date']
+    # получам родителя и проверям время=
+    response_parent_1_update = client.get(
+        "/work/" + json_trees['children_1']['parent_id'],
+        headers={"X-Token": "coneofsilence"},
+    )
+    assert response_parent_1_update.status_code == 200
+    assert response_parent_1_update.json()['start_date'] \
+        == json_trees['children_3']['start_date']
+    assert response_parent_1_update.json()['end_date'] \
+        == json_trees['children_3']['end_date']
 
 
-# def test_get_all():
-#     response = client.get(
-#         "/work?skip=0&limit=100",
-#         headers={"X-Token": "coneofsilence"},
-#     )
-#     assert response.status_code == 200
+def test_get_all():
+    response = client.get(
+        "/work?skip=0&limit=100",
+        headers={"X-Token": "coneofsilence"},
+    )
+    assert response.status_code == 200
